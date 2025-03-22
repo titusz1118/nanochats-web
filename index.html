@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano - 聊天同視訊</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="login-section" class="login-section">
+            <h2>登入 Nano</h2>
+            <input type="text" id="username" placeholder="用戶名">
+            <input type="password" id="password" placeholder="密碼">
+            <button onclick="login()">登入</button>
+            <button onclick="register()">註冊</button>
+            <p id="login-message"></p>
+        </div>
+        <div id="main-section" class="main-section" style="display: none;">
+            <div class="chat-section">
+                <h2>Nano 聊天室</h2>
+                <div id="user-info"></div> <!-- 顯示當前用戶 -->
+                <div id="chat-box"></div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="輸入訊息...">
+                    <button onclick="sendMessage()">發送</button>
+                </div>
+            </div>
+            <div class="video-section">
+                <h2>Nano 視訊</h2>
+                <div class="video-container">
+                    <video id="local-video" autoplay muted></video>
+                    <video id="remote-video" autoplay></video>
+                </div>
+                <div class="controls">
+                    <button onclick="startVideoCall()">開始視訊</button>
+                    <button onclick="stopVideoCall()">結束視訊</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
