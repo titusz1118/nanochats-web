@@ -32,3 +32,44 @@ socket.on('loginResponse', (data) => {
         document.getElementById('login-message').textContent = data.message;
     }
 });
+
+function sendMessage() {
+    const message = document.getElementById('message-input').value;
+    if (message) {
+        socket.emit('chatMessage', { message });
+        document.getElementById('message-input').value = '';
+    }
+}
+
+socket.on('chatMessage', (data) => {
+    const chatBox = document.getElementById('chat-box');
+    const msgElement = document.createElement('p');
+    msgElement.textContent = data.message;
+    chatBox.appendChild(msgElement);
+});
+
+function startVideoCall() {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+        .then((stream) => {
+            const localVideo = document.getElementById('local-video');
+            localVideo.srcObject = stream;
+            socket.emit('startVideo', { streamId: socket.id });
+        })
+        .catch((err) => {
+            console.error('Video call error:', err);
+        });
+}
+
+socket.on('videoStream', (data) => {
+    console.log('Received video stream from:', data.streamId);
+});
+
+function stopVideoCall() {
+    const localVideo = document.getElementById('local-video');
+    const stream = localVideo.srcObject;
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        localVideo.srcObject = null;
+        socket.emit('stopVideo');
+    }
+}
