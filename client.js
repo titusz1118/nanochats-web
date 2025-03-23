@@ -10,14 +10,13 @@ const userInfo = document.getElementById('user-info');
 
 let localStream, peerConnection, username, userId;
 
-// 登入
 function login() {
-    const user = document.getElementById('username').value.trim();
-    const pass = document.getElementById('password').value.trim();
-    if (user && pass) {
-        socket.emit('login', { username: user, password: pass });
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    if (username && password) {
+        socket.emit('login', { username, password });
     } else {
-        loginMessage.textContent = '請輸入用戶名同密碼';
+        document.getElementById('login-message').textContent = '請輸入用戶名同密碼'; // 第 20 行
     }
 }
 
