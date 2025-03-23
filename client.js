@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000'); // 部署後改
+const socket = io('https://nanochats-backend.onrender.com');
 const chatBox = document.getElementById('chat-box');
 const messageInput = document.getElementById('message-input');
 const localVideo = document.getElementById('local-video');
